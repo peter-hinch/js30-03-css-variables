@@ -8,6 +8,9 @@
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
   <div class="controls">
+    <!-- note: we can create our own HTML attributes by prefixing with 'data-'
+    in this case we use the data-sizing attribute to determine the suffix to 
+    add to our spacing and blur values. -->
     <label for="spacing">Spacing:</label>
     <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
@@ -21,6 +24,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +63,18 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate(){
+      console.log(this.value);
+    }
+
+    // change listener takes care of changes to the sliders, the mousemove
+    // handler listens for movements of the mouse while over the input
+    // note: our implementation could also include a check to see whether the
+    // mouse button is pressed but has been omitted for the sake of brevity.
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
