@@ -40,10 +40,7 @@
       color: var(--base);
     }
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
-
+    /* misc styles, nothing to do with CSS variables */
     body {
       text-align: center;
       background: #193549;
@@ -66,7 +63,12 @@
     const inputs = document.querySelectorAll('.controls input');
 
     function handleUpdate(){
-      console.log(this.value);
+      // dataset returns an object containing any custom attributes with the
+      // 'data-' prefix.
+      const suffix = this.dataset.sizing || '';
+
+      // set property for element by name (name is always prefixed with two dashes '--')
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
     }
 
     // change listener takes care of changes to the sliders, the mousemove
